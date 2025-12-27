@@ -1,0 +1,16 @@
+from skimage.io import imread
+from skimage.filters import threshold_otsu
+import matplotlib.pyplot as plt
+
+car_image = imread("car.jpg", as_gray=True)
+print(car_image.shape)
+
+gray_car_image = car_image * 255  # multiplied by 255 cause skimage ranges from 0 & 1
+fig, (ax1, ax2) = plt.subplot(1, 2)
+ax1.imshow(gray_car_image, cmap="gray")
+threshold_value = threshold_otsu(gray_car_image)
+binary_car_image = (
+    gray_car_image > threshold_value
+)  # anything past this threshold value is binary no grey
+ax2.imshow(binary_car_image, cmap="gray")
+plt.show()
