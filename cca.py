@@ -14,7 +14,8 @@ plate_dimensions = (
     0.25 * label_image.shape[0],
     0.1 * label_image.shape[1],
     0.6 * label_image.shape[1],
-)
+)  # accepts a boxes that fit these dimensions
+# setting each to the index from plate_dimensions
 min_height, max_height, min_width, max_width = plate_dimensions
 plate_object_cordinates = []
 plate_like_objects = []
@@ -25,18 +26,20 @@ ax1.imshow(localization.binary_car_image, cmap="gray")
 for region in regionprops(label_image):
     if region.area < 50:
         continue  # region area is probably so small that its not a license plate
-    # Box Cordinatees
+    # Box Cordinates
     minRow, minCol, maxRow, maxCol = region.bbox
     box_width = maxCol - minCol
     box_height = maxRow - minRow
 
     if (
+        # filter for our plate_like features based on geometry
         box_height >= min_height
         and box_height <= max_height
         and box_width >= min_width
-        and box_width <= max_height
+        and box_width <= max_width
         and box_height < box_width
     ):
+        # saving our candidates to the list
         plate_like_objects.append(
             (localization.binary_car_image[minRow:maxRow, minCol:maxCol])
         )
