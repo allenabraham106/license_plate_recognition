@@ -3,7 +3,8 @@ from skimage.transform import resize
 from skimage import measure
 from skimage.measure import regionprops
 from skimage.morphology import closing, square
-from skimage.morphology import remove_small_objects
+
+# from skimage.morphology import remove_small_objects
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 import cca
@@ -12,8 +13,8 @@ import cca
 license_plate = np.invert(
     cca.plate_like_objects[1]
 )  # hardcoded value, can be switched around
-license_plate = closing(license_plate, square(3))
-license_plate = remove_small_objects(license_plate, max_size=100)
+# license_plate = closing(license_plate, square(3))
+# license_plate = remove_small_objects(license_plate, max_size=10)
 labeled_plate = measure.label(license_plate)
 
 # show our images
@@ -24,10 +25,10 @@ ax1.imshow(license_plate, cmap="gray")
 h, w = license_plate.shape
 character_dimensions = (
     # Height is 35 - 60% of the plate
-    0.35 * h,
-    0.60 * h,
-    # Width is 5 - 15% of the plate
-    0.05 * w,
+    0.30 * h,
+    0.80 * h,
+    # Width is 1 - 15% of the plate
+    0.01 * w,
     0.15 * w,
 )
 
@@ -37,7 +38,7 @@ counter = 0
 coloumn_list = []
 
 for region in regionprops(labeled_plate):
-    y0, y1, x0, x1 = region.bbox
+    y0, x0, y1, x1 = region.bbox
     region_height = y1 - y0
     region_width = x1 - x0
 
