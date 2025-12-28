@@ -2,14 +2,18 @@ import numpy as np
 from skimage.transform import resize
 from skimage import measure
 from skimage.measure import regionprops
+from skimage.morphology import closing, square
+from skimage.morphology import remove_small_objects
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 import cca
 
 # inverts the white and the black
 license_plate = np.invert(
-    cca.plate_like_objects[2]
+    cca.plate_like_objects[1]
 )  # hardcoded value, can be switched around
+license_plate = closing(license_plate, square(3))
+license_plate = remove_small_objects(license_plate, max_size=100)
 labeled_plate = measure.label(license_plate)
 
 # show our images
@@ -17,13 +21,14 @@ fig, ax1 = plt.subplots(1)
 ax1.imshow(license_plate, cmap="gray")
 
 # rough estimates to what a license plate might look like
+h, w = license_plate.shape
 character_dimensions = (
     # Height is 35 - 60% of the plate
-    0.35 * license_plate[0],
-    0.60 * license_plate[0],
+    0.35 * h,
+    0.60 * h,
     # Width is 5 - 15% of the plate
-    0.05 * license_plate[1],
-    0.15 * license_plate[1],
+    0.05 * w,
+    0.15 * w,
 )
 
 min_height, max_height, min_width, max_width = character_dimensions
@@ -55,6 +60,6 @@ for region in regionprops(labeled_plate):
         character.append(resized_characters)
 
         # keep track on the arrangement of characters
-        coloumn_list.append[x0]
+        coloumn_list.append(x0)
 
 plt.show()
