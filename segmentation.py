@@ -15,8 +15,8 @@ license_plate = np.invert(
 )  # hardcoded value, can be switched around
 
 # open to remove noise and then close to fill
-license_plate = opening(license_plate, square(1))
-license_plate = closing(license_plate, square(1))
+license_plate = opening(license_plate, square(2))
+license_plate = closing(license_plate, square(3))
 labeled_plate = measure.label(license_plate)
 
 # show our images
