@@ -26,12 +26,12 @@ ax1.imshow(license_plate, cmap="gray")
 # rough estimates to what a license plate might look like
 h, w = license_plate.shape
 character_dimensions = (
-    # Height is 35 - 60% of the plate
+    # Height is 15 - 80% of the plate
     0.15 * h,
     0.80 * h,
-    # Width is 1 - 15% of the plate
+    # Width is 0.5 - 16% of the plate
     0.005 * w,
-    0.15 * w,
+    0.16 * w,
 )
 
 min_height, max_height, min_width, max_width = character_dimensions
