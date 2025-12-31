@@ -9,7 +9,9 @@ import cca
 
 # inverts the white and the black
 license_plate = np.invert(
-    cca.plate_like_objects[1]
+    cca.plate_like_objects[
+        1
+    ]  # this is more of a hardcoded value between the images you choose
 )  # hardcoded value, can be switched around
 
 # open to remove noise and then close to fill
