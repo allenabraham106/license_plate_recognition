@@ -1,8 +1,8 @@
 import os  # file directory
 import numpy as np  # for image and feature arrays
-from sklearn import SVC  # for character classifier
+from sklearn.svm import SVC  # for character classifier
 from sklearn.model_selection import cross_val_score  # modelevaluation
-from sklearn.externals import joblib  # load trained model
+import joblib  # load trained model
 from skimage.io import imread  # read images
 from skimage.filters import threshold_otsu  # binarzation
 
@@ -70,11 +70,11 @@ def cross_validation(model, num_of_fold, train_data, train_label):
 
 
 current_dir = os.path.dirname(os.path.realpath(__file__))
-training_dataset_dir = os.path.join(current_dir, "train")
+training_dataset_dir = os.path.join(current_dir, "train20x20")
 image_data, target_data = read_training_data(training_dataset_dir)
 
 # the kernel can be 'linear', 'poly' or 'rbf'
-svc_model = SVC(kernal="linear", probability=True)
+svc_model = SVC(kernel="linear", probability=True)
 cross_validation(svc_model, 4, image_data, target_data)
 
 # train the model with input data
