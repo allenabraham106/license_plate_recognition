@@ -3,8 +3,6 @@ from skimage.transform import resize
 from skimage import measure
 from skimage.measure import regionprops
 from skimage.morphology import closing, opening, square
-
-# from skimage.morphology import remove_small_objects
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 import cca
@@ -34,9 +32,10 @@ character_dimensions = (
     0.16 * w,
 )
 
+counter = 0
 min_height, max_height, min_width, max_width = character_dimensions
 character = []
-counter = 0
+
 coloumn_list = []
 valid_regions = []
 
