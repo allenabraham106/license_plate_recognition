@@ -44,6 +44,7 @@ letters = [
 ]
 
 
+# build our dataset
 def read_training_data(training_directory):
     image_data = []  # flattened images
     target_data = []  # correct labels ie. A, O , 3 etc
@@ -60,7 +61,10 @@ def read_training_data(training_directory):
             flat_bin_image = binary_image.reshape(-1)
             image_data.append(flat_bin_image)
             target_data.append(each_letter)
-    return (np.array(image_data), np.array(target_data))
+    return (
+        np.array(image_data),
+        np.array(target_data),
+    )  # returned as numpy arrays for ML model
 
 
 def cross_validation(model, num_of_fold, train_data, train_label):
@@ -69,8 +73,11 @@ def cross_validation(model, num_of_fold, train_data, train_label):
     print(acuracy_result * 100)
 
 
+# locate our dataset relative to current file
 current_dir = os.path.dirname(os.path.realpath(__file__))
 training_dataset_dir = os.path.join(current_dir, "train20x20")
+
+# load our dataset
 image_data, target_data = read_training_data(training_dataset_dir)
 
 # the kernel can be 'linear', 'poly' or 'rbf'
