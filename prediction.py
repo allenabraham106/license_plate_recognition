@@ -7,6 +7,7 @@ current_dir = os.path.dirname(os.path.realpath(__file__))
 model_dir = os.path.join(current_dir, "models/svc/svc.pkl")
 model = joblib.load(model_dir)
 
+# predict each character
 classification_result = []
 for each_character in segmentation.character:
     # converting to 1d image

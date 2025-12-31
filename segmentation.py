@@ -38,6 +38,7 @@ min_height, max_height, min_width, max_width = character_dimensions
 character = []
 counter = 0
 coloumn_list = []
+valid_regions = []
 
 for region in regionprops(labeled_plate):
     y0, x0, y1, x1 = region.bbox
@@ -45,6 +46,18 @@ for region in regionprops(labeled_plate):
     region_width = x1 - x0
     region_area = region.area
     min_area = 50
+    aspect_ratio = region_width / region_height
+
+    if region_height < 20 or region_height > 100:
+        continue
+    if region_width < 5 or region_width > 80:
+        continue
+    if region_area < 50:
+        continue
+    if aspect_ratio > 2.5:
+        continue
+
+    valid_regions.append(region)
 
     if (
         region_height > min_height
